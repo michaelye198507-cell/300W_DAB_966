@@ -1,0 +1,110 @@
+<projectSpec>
+  <project
+        name="packbalance_f280013x"
+        device="TMS320F2800137"
+        cgtVersion="22.6.0.LTS"
+        products="sysconfig:1.21.0"
+        outputFormat="ELF"
+        launchWizard="False"
+        linkerCommandFile=""
+        enableSysConfigTool="true"
+        sysConfigBuildOptions="--product ${C2000WARE_ROOT}/.metadata/sdk.json --device F280013x --package 64PM --part F280013x_64PM"
+        sourceLookupPath="${C2000WARE_DLIB_ROOT}"
+        >
+
+    <configuration name="FLASH_RELEASE" 
+	  compilerBuildOptions="--opt_level=1 --opt_for_speed=5 
+      -I${PROJECT_ROOT}/device
+      -I${PROJECT_ROOT}/device/driverlib
+      -I${PROJECT_ROOT}/libraries/DCL
+      --define=DEBUG --define=_FLASH
+      --abi=eabi
+      -ml -mt -v28
+      --float_support=fpu32 --float_operations_allowed=32 --cla_support=cla2 --vcu_support=vcrc --tmu_support=tmu0 --fp_mode=relaxed
+      --diag_warning=225 --diag_suppress=10063 --diag_wrap=off --display_error_number
+      --gen_func_subsections=on"
+	    linkerBuildOptions="--stack_size=0x200
+		  --heap_size=0x100
+		  --entry_point code_start
+		  -i${PROJECT_ROOT}/device 
+		  -i${PROJECT_ROOT}/device/driverlib/ccs/Release
+      -i${PROJECT_BUILD_DIR}/syscfg
+		  -l libc.a
+      -l c2000ware_libraries.cmd.genlibs
+      -l driverlib.lib" />
+
+    <configuration name="RAM_RELEASE" 
+	  compilerBuildOptions="--opt_level=1 --opt_for_speed=5 
+      -I${PROJECT_ROOT}/device
+      -I${PROJECT_ROOT}/device/driverlib
+      -I${PROJECT_ROOT}/libraries/DCL
+      --define=DEBUG --define=RAM
+      --abi=eabi
+      -ml -mt -v28
+      --float_support=fpu32 --float_operations_allowed=32 --cla_support=cla2 --vcu_support=vcrc --tmu_support=tmu0 --fp_mode=relaxed
+      --diag_warning=225 --diag_suppress=10063 --diag_wrap=off --display_error_number
+      --gen_func_subsections=on"
+	    linkerBuildOptions="--stack_size=0x200
+		  --heap_size=0x100
+		  --entry_point code_start
+		  -i${PROJECT_ROOT}/device 
+		  -i${PROJECT_ROOT}/device/driverlib/ccs/Release
+      -i${PROJECT_BUILD_DIR}/syscfg
+		  -l libc.a
+      -l c2000ware_libraries.cmd.genlibs
+      -l driverlib.lib" />
+	
+    <pathVariable name="C2000WARE_ROOT" path="../../../../c2000ware/" scope="project" />
+    <pathVariable name="C2000WARE_DLIB_ROOT" path="../../../../c2000ware/driverlib/f280013x/driverlib" scope="project" />
+    
+    <!-- Device Folder -->
+    <file action="copy" path="../../../../c2000ware/device_support/f280013x/common/include/driverlib.h" 
+                        targetDirectory="device" />
+    <file action="copy" path="../../../../c2000ware/driverlib/f280013x/driverlib/" 
+                        targetDirectory="device/" excludeFromBuild="True"/>
+    <file action="copy" path="../../../../c2000ware/device_support/f280013x/common/targetConfigs/TMS320F2800137.ccxml" 
+                        targetDirectory="targetConfigs" />
+
+
+    <!-- Project Source Files -->
+    <file action="copy" path="../pack_balance/packbalance_f280013x.syscfg" openOnCreation="true"
+                        targetDirectory="" />
+    <file action="copy" path="../pack_balance/packbalance_main.c" 
+                        targetDirectory="" />
+    <file action="copy" path="../pack_balance/packbalance_settings.h" 
+                        targetDirectory="" />
+    <file action="copy" path="../pack_balance/packbalance_user_settings.h" 
+                        targetDirectory="" />
+    <file action="copy" path="../drivers/include/packbalance_hal.h" 
+                        targetDirectory="" />   
+    <file action="copy" path="../../source/packbalance/include/packbalance.h" 
+                        targetDirectory="" />  
+    <file action="copy" path="../../source/packbalance/source/packbalance.c"
+                        targetDirectory="" />                   
+    <file action="copy" path="../../../../c2000ware/device_support/f280013x/common/cmd/280013x_generic_ram_lnk.cmd" 
+                        targetDirectory="cmd" applicableConfigurations="RAM_RELEASE" />
+    <file action="copy" path="../cmd/280013x_generic_dcl_flash_lnk.cmd" 
+                        targetDirectory="cmd" applicableConfigurations="FLASH_RELEASE" />
+
+    <!-- Project Libraries -->  
+    <file action="copy" path="../../../../c2000ware/libraries/control/DCL/c28/include/DCL.h" 
+                        targetDirectory="libraries/DCL" />
+    <file action="copy" path="../../../../c2000ware/libraries/control/DCL/c28/include/DCLF32.h" 
+                        targetDirectory="libraries/DCL" />
+    <file action="copy" path="../../../../c2000ware/libraries/control/DCL/c28/source/DCL_DF13_C2C3.asm" 
+                        targetDirectory="libraries/DCL" />
+    
+    <!-- Debug Files -->
+    <file action="copy" path="../../source/packbalance/debug/setupdebugenv_lab1_4.js"
+                        targetDirectory="" />              
+    <file action="copy" path="../../source/packbalance/debug/setupdebugenv_lab2_5.js"
+                        targetDirectory="" />              
+    <file action="copy" path="../../source/packbalance/debug/setupdebugenv_lab3_6.js"
+                        targetDirectory="" />              
+        
+    <file action="link" path="../../../../docs/html_guide/TIDA-010966.html" openOnCreation="false" excludeFromBuild="false" targetName="README.html"  />   
+  </project>
+</projectSpec>
+
+
+
